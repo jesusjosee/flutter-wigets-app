@@ -4,13 +4,37 @@ import 'package:widgets_app/config/menu/menu_items.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  Future<bool> _onWillPop(context) async {
+  return (await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('¿Estás seguro?'),
+          content: const Text('Quieres salir de la App'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false), //<-- SEE HERE
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true), // <-- SEE HERE
+              child: const Text('Sí'),
+            ),
+          ],
+        ),
+      )) ??
+      false;
+}
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter + Material 3'),
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter + Material 3'),
+        ),
+        body: const _HomeView(),
       ),
-      body: const _HomeView(),
     );
   }
 }
