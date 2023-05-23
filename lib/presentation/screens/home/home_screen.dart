@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:widgets_app/config/menu/menu_items.dart';
 
 class HomeScreen extends StatelessWidget {
+
+  static const String name = 'home_scren';
+
   const HomeScreen({super.key});
 
   @override
@@ -34,6 +37,7 @@ class _HomeView extends StatelessWidget {
 }
 
 class _CustomListTile extends StatelessWidget {
+
   const _CustomListTile({
     required this.menuItem,
   });
@@ -52,7 +56,8 @@ class _CustomListTile extends StatelessWidget {
       trailing: Icon(Icons.arrow_forward_ios_rounded, color: colors.primary),
       onTap: () {
         // Navigator.pushNamed(context, menuItem.link); // Rutas normales de flutter
-        context.go(menuItem.link); // Go Router
+        // context.go(menuItem.link); // Go Router sin rutas nombradas
+        context.push(menuItem.link); // Go Router con rutas nombradas
       }
     );
   }
